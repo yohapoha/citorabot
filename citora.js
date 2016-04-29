@@ -28,7 +28,6 @@ function loadBot() {
 			if(messageChatId !== messageUserId) {
 				this.sendMessage(msg.from.id, "hello");
 			}
-			
 		}
 		console.log(msg);
 	});
