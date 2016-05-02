@@ -1,3 +1,7 @@
+import {User} from './modules/authorization/model.ts';
+
+declare function require(name:string);
+
 var TelegramBot = require('node-telegram-bot-api');
 var fs = require("fs");
 var botToken = "";
@@ -12,11 +16,13 @@ fs.readFile("token.txt", 'utf8', function(err, data) {
 function loadBot() {
 	var bot = new TelegramBot(botToken, botOptions);
 	bot.getMe().then(function(me) {
-		console.log('Hello! My name is %s!', me.first_name);
-		console.log('My id is %s.', me.id);
-		console.log('And my username is @%s.', me.username);
+		// console.log('Hello! My name is %s!', me.first_name);
+		// console.log('My id is %s.', me.id);
+		// console.log('And my username is @%s.', me.username);
 	});
+	var n = 0
 	bot.on('text', function(msg) {
+		var user;
 		var messageChatId = msg.chat.id;
 		var messageText = msg.text.toLowerCase();
 		var messageDate = msg.date;
@@ -29,7 +35,11 @@ function loadBot() {
 				this.sendMessage(msg.from.id, "hello");
 			}
 		}
-		console.log(msg);
+		if(messageText === "/start") {
+			user = new User(msg.from.id);
+			this.sendMessage(msg.from.id, "Ваш ID: "+user.id+". Ваш уровень доступа: "+user.level+".");
+		}
+		// console.log(msg);
 	});
 }
 

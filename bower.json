@@ -1,0 +1,10 @@
+{
+  "name": "project1",
+  "dependencies": {
+    "jquery": "^2.2",
+    "bootstrap": "^3.3.6",
+    "angular": "^1.4.9",
+    "limit.js": "limit#*",
+    "jquery.maskedinput": "^1.4.1"
+  }
+}
