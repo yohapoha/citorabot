@@ -13,9 +13,13 @@ export class User implements iUser {
     }
     private setLevel(id:number):number {
         var fs = require("fs");
-        var usersJSON = fs.readFileSync("./modules/authorization/users.json");
+        var usersJSON = fs.readFileSync("./data/users.json");
         var users = JSON.parse(usersJSON);
-        return users.Levels[users.IDs.indexOf(id)];
+        for(var i = 0; i < users.list.length; i++) {
+            if(users.user[i].id === id) {
+                return users.list[i].level;
+            }
+        }
     }
     private setCommands():Array<string> {
         return [];
