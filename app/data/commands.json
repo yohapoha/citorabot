@@ -1,16 +1,95 @@
 {
-    "list": [
-        {
-            "level": 0,
-            "commands": []
-        },
-        {
-            "level": 1,
-            "commands": []
-        },
-        {
-            "level": 2,
-            "commands": []
-        }
-    ]
+	"list": [
+		{
+			"id": "0",
+			"level": "2",
+			"command": "/start",
+			"commandAlt": "старт",
+			"description": "Авторизация в системе"
+		},
+		{
+			"id": "1",
+			"level": "0",
+			"command": "/commands",
+			"commandAlt": "команды",
+			"description": "Отобразить все доступные команды",
+			"output": "#commands"
+		},
+		{
+			"id": "1",
+			"description": "Информационная система РИАМС",
+			"command": "/riams",
+			"commandAlt": "риамс",
+			"level": "2",
+			"chain": [
+				{
+					"id": "1.1",
+					"description": "Настройки РИАМС",
+					"command": "/riams_settings",
+					"commandAlt": "риамс настройки",
+					"chain": [
+						{
+							"id": "1.1.1",
+							"description": "Все настройки",
+							"command": "/riams_settings_all",
+							"commandAlt": "риамс настройки все",
+							"output": ""
+						}
+					]
+				},
+				{
+					"id": "1.2",
+					"description": "Контакты",
+					"command": "/riams_contacts",
+					"commandAlt": "риамс контакты",
+					"output": ""
+				},
+				{
+					"id": "1.3",
+					"description": "Информация по РИАМС",
+					"command": "/riams_information",
+					"commandAlt": "риамс информация",
+					"output": ""
+				}
+			]
+		},
+		{
+			"id": "2",
+			"description": "Информационная система ГИС ЭО",
+			"command": "/giseo",
+			"commandAlt": "гисэо",
+			"level": "2",
+			"chain": [
+				{
+					"id": "2.1",
+					"description": "Настройки ГИС ЭО",
+					"command": "/giseo_settings",
+					"commandAlt": "гисэо настройки",
+					"chain": [
+						{
+							"id": "2.1.1",
+							"description": "Все настройки",
+							"command": "/giseo_settings_all",
+							"commandAlt": "гисэо настройки все",
+							"output": ""
+						}
+					]
+				},
+				{
+					"id": "2.2",
+					"description": "Контакты",
+					"command": "/giseo_contacts",
+					"commandAlt": "гисэо контакты",
+					"output": ""
+				},
+				{
+					"id": "2.3",
+					"description": "Информация по ГИС ЭО",
+					"command": "giseo_information",
+					"commandAlt": "гисэо информация",
+					"output": ""
+				}
+			]
+		}
+	]
 }
