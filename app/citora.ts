@@ -33,166 +33,112 @@ bot.on('text', msg => {
 	var firstName = msg.from.first_name;
 	var reply = msg.message_id;
 	if(message.toLowerCase() === "привет") {
-		if(chatSystem === 1) {
-			answerMessage = "Меню (Карта меню: /menu_map)";
-			markup = bot.inlineKeyboard([
-				[
-					bot.inlineButton('Информационные системы', { callback: "systems" })
-				]
-			], {resize: true});
-			bot.sendMessage(user.id, `Привет, ${firstName}!`);
-			bot.sendMessage(user.id, answerMessage, { markup });
-		} else {
-			answerMessage = "Меню";
-			markup = bot.keyboard([
-				['Информационные системы']
-			], {resize: true});
-		}	
-	}
-	if(chatSystem === 1) {
-		if(message === "/menu_map") {
-			message = `
-			Меню (/menu)
-			--- Информационные системы (/is)
-			------ ГИС ЭО (/giseo)
-			--------- Настройки (/giseo_settings)
-			------------ Основные настройки (/giseo_settings_main)
-			`;
-			markup = bot.inlineKeyboard([
-				[
-					bot.inlineButton('Информационные системы', { callback: "systems" })
-				]
-			], {resize: true});
-			bot.sendMessage(user.id, message, { markup });
-		}
-	} else {
-		if(message === "Меню") {
-			answerMessage = "Меню";
-			markup = bot.keyboard([
-				['Информационные системы']
-			], {resize: true});
-		}
-		if(message === "Информационные системы") {
-			answerMessage = "Меню > Информационные системы";
-			markup = bot.keyboard([
-				['Меню'],
-				['ГИС ЭО'],
-				['РИАМС']
-			], {resize: true});
-		}
-		if(message === "ГИС ЭО") {
-			answerMessage = "Меню > Информационные системы > ГИС ЭО";
-			markup = bot.keyboard([
-				['Меню', 'Информационные системы'],
-				['[ГИС ЭО] Настройки'],
-				['[ГИС ЭО] Контакты'],
-				['[ГИС ЭО] Информация']
-			], {resize: true});
-		}
-		if(message === "[ГИС ЭО] Настройки") {
-			answerMessage = "Меню > Информационные системы > ГИС ЭО > Настройки";
-			markup = bot.keyboard([
-				['Меню', 'ГИС ЭО'],
-				['[ГИС ЭО] Основные настройки'],
-				['[ГИС ЭО] Полные настройки (файл)']
-			], {resize: true});
-		}
-		if(message === "[ГИС ЭО] Основные настройки") {
-			answerMessage = "Меню > Информационные системы > ГИС ЭО > Настройки > Основные настройки";
-			markup = bot.keyboard([
-				['Меню', '[ГИС ЭО] Настройки'],
-			], {resize: true});
-			bot.sendMessage(user.id, "LINK: rmis11.cdmarf.ru; DNS: 10.33.80.61/62; HOST: 10.33.80.108 rmis11.cdmarf.ru;");
-		}
-		bot.sendMessage(user.id, answerMessage, { markup });
+		message = `Привет, ${firstName}!`;
+		message += "\n\n--------------------\n\n";
+		message += "Текущая позиция:\n\n";
+		message += "Главная";
+		markup = bot.inlineKeyboard([
+			[
+				bot.inlineButton('[ > ] Информационные системы', { callback: "systems" })
+			],
+			[
+				bot.inlineButton('[ > ] Акты', { callback: "acts" })
+			],
+			[
+				bot.inlineButton('[ > ] Шаблоны', { callback: "templates" })
+			],
+			[
+				bot.inlineButton('Доступные команды', { callback: "commands" })
+			],
+			[
+				bot.inlineButton('О боте', { callback: "bot" })
+			]
+		], {resize: true});
+		bot.sendMessage(user.id, message, { markup });	
 	}
 });
 bot.on('callbackQuery', msg => {
-	var message = "";
+	var message = "Текущая позиция:\n\n";
 	var markup = "";
 	bot.answerCallback(msg.id);
 	if(msg.data === "menu") {
-		message = "Меню";
+		message += "Главная";
 		markup = bot.inlineKeyboard([
 			[
-				bot.inlineButton('Информационные системы', { callback: "systems" })
+				bot.inlineButton('[ + ] Информационные системы', { callback: "systems" })
+			],
+			[
+				bot.inlineButton('[ + ] Акты', { callback: "acts" })
+			],
+			[
+				bot.inlineButton('[ + ] Шаблоны', { callback: "templates" })
+			],
+			[
+				bot.inlineButton('Доступные команды', { callback: "commands" })
+			],
+			[
+				bot.inlineButton('О боте', { callback: "bot" })
 			]
  	 	], {resize: true});
 	}
 	if(msg.data === "systems") {
-		message = `Меню (/menu)
-		--- Информационные системы (/is)
-		`;
+		message += `Главная > Информационные системы`;
 		markup = bot.inlineKeyboard([
 			[
-				bot.inlineButton('Назад', { callback: "menu" })
+				bot.inlineButton('На главную', { callback: "menu" }), bot.inlineButton('Назад', { callback: "menu" })
 			],
 			[
-				bot.inlineButton('ГИС ЭО', { callback: "giseo" })
+				bot.inlineButton('[ + ] ГИС ЭО', { callback: "giseo" })
 			],
 			[
-				bot.inlineButton('РИАМС', { callback: "riams" })
+				bot.inlineButton('[ + ] РИАМС', { callback: "riams" })
 			]
  	 	], {resize: true});
 	}
 	if(msg.data === "giseo") {
-		message = `
-		Меню (/menu)
-		--- Информационные системы (/is)
-		------ ГИС ЭО (/giseo)
-		`;
+		message += `Главная > Информационные системы > ГИС ЭО`;
 		markup = bot.inlineKeyboard([
 			[
-				bot.inlineButton('Меню', { callback: "menu" }), bot.inlineButton('Назад', { callback: "systems" })
+				bot.inlineButton('На главную', { callback: "menu" }), bot.inlineButton('Назад', { callback: "systems" })
 			],
 			[
-				bot.inlineButton('Настройки', { callback: "giseo_settings" })
+				bot.inlineButton('[ + ] Настройки', { callback: "giseo_settings" })
 			],
 			[
-				bot.inlineButton('Контакты', { callback: "giseo_contacts" })
+				bot.inlineButton('[ + ] Контакты', { callback: "giseo_contacts" })
 			],
 			[
-				bot.inlineButton('Информация', { callback: "giseo_information" })
+				bot.inlineButton('[ + ] Решения ошибок', { callback: "giseo_errors" })
+			],
+			[
+				bot.inlineButton('О системе', { callback: "giseo_information" })
 			]
  	 	], {resize: true});
 	}
 	if(msg.data === "giseo_settings") {
-		message = `
-		Меню (/menu)
-		--- Информационные системы (/is)
-		------ ГИС ЭО (/giseo)
-		--------- Настройки (/giseo_settings)
-		`;
+		message += `Главная > Информационные системы > ГИС ЭО > Настройки`;
 		markup = bot.inlineKeyboard([
 			[
-				bot.inlineButton('Меню', { callback: "menu" }), bot.inlineButton('Назад', { callback: "giseo" })
+				bot.inlineButton('На главную', { callback: "menu" }), bot.inlineButton('Назад', { callback: "giseo" })
 			],
 			[
-				bot.inlineButton('Основные настройки', { callback: "giseo_settings_main" })
+				bot.inlineButton('Краткие настройки', { callback: "giseo_settings_main" })
 			],
 			[
-				bot.inlineButton('Полные настройки (файл)', { callback: "giseo_settings_full" })
+				bot.inlineButton('[ Файл ] Полные настройки', { callback: "giseo_settings_full" })
 			]			
  	 	], {resize: true});
 	}
 	if(msg.data === "giseo_settings_main") {
-		message = `
-		Меню (/menu)
-		--- Информационные системы (/is)
-		------ ГИС ЭО (/giseo)
-		--------- Настройки (/giseo_settings)
-		------------ Основные настройки (/giseo_settings_main)
-		`;
+		message = "Основные настройки ГИС ЭО:\n\nLINK: rmis11.cdmarf.ru\nDNS: 10.33.80.61/62\nHOST: 10.33.80.108 rmis11.cdmarf.ru";
+		message += "\n\n--------------------\n\n";
+		message += "Текущая позиция:\n\n";
+		message += `Главная > Информационные системы > ГИС ЭО > Настройки > Основные настройки`;
 		markup = bot.inlineKeyboard([
 			[
-				bot.inlineButton('Меню', { callback: "menu" }), bot.inlineButton('Назад', { callback: "giseo_settings" })
+				bot.inlineButton('На главную', { callback: "menu" }), bot.inlineButton('Назад', { callback: "giseo_settings" })
 			]
 		]);
-		let command_output = `Основные настройки ГИС ЭО:
-		LINK: rmis11.cdmarf.ru
-		DNS: 10.33.80.61/62
-		HOST: 10.33.80.108 rmis11.cdmarf.ru`;
-		bot.sendMessage(user.id, command_output);
 	}
 	bot.sendMessage(user.id, message, { markup });
 });
