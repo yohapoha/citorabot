@@ -39,13 +39,13 @@ bot.on('text', msg => {
 		message += "Главная";
 		markup = bot.inlineKeyboard([
 			[
-				bot.inlineButton('[ > ] Информационные системы', { callback: "systems" })
+				bot.inlineButton('[ + ] Информационные системы', { callback: "systems" })
 			],
 			[
-				bot.inlineButton('[ > ] Акты', { callback: "acts" })
+				bot.inlineButton('[ + ] Акты', { callback: "acts" })
 			],
 			[
-				bot.inlineButton('[ > ] Шаблоны', { callback: "templates" })
+				bot.inlineButton('[ + ] Шаблоны', { callback: "templates" })
 			],
 			[
 				bot.inlineButton('Доступные команды', { callback: "commands" })
